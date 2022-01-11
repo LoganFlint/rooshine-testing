@@ -14,8 +14,8 @@ describe("Sign in", () => {
 });
 
   it("test change password", () => {
-    const currentPassword = "Lambda19"
-    const newPassword = "Lambda2019"
+    // const currentPassword = "Lambda19"
+    // const newPassword = "Lambda2019"
     cy.get('[data-cy=change-password]').should("be.visible")
     // cy.get('[data-cy=change-password]').click().then(() => {
     //   cy.url().should('eq', 'http://localhost:3000/profile/change-password') 
