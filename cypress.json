@@ -5,9 +5,9 @@
     "component": {
         "componentFolder": "tests/cypress/components"
     },
+    "supportFile": "tests/cypress/support/index.ts",
     "screenshotsFolder": "tests/cypress/screenshots",
     "pluginsFile": false,
-    "supportFile": false,
     "video": true,
     "videosFolder": "tests/cypress/videos",
     "chromeWebSecurity": false
