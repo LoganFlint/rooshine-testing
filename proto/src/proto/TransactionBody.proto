@@ -1,0 +1,264 @@
+syntax = "proto3";
+
+package isv;
+
+import "google/protobuf/struct.proto";
+
+message IsvTransactionBody {
+    // the account number of the HCS transaction ID
+    // shard and realm numbers are assumed to be 0
+    int64 hederaAccountNum = 1;
+
+    // the valid start timestamp (in nanoseconds) of the HCS transaction ID
+    // must be within 2 minutes of the consensus timestamp of the HCS message
+    // that this transaction arrived in
+    //
+    // this and `hederaAccountNum` act as the nonce of the transaction and both must match
+    // the `ConsensusTopicMessage.initialTransactionID` of the HCS message,
+    // which is validated by Hedera
+    int64 hederaValidStartNanos = 2;
+
+    oneof body {
+        InitContract initContract = 3;
+
+        Cash cash = 4;
+
+        GrantKyc grantKyc = 5;
+        RevokeKyc revokeKyc = 6;
+
+        MintBarrelToken mintBarrelToken = 10;
+
+        CreateAuction createAuction = 20;
+        CloseAuction closeAuction = 21;
+        Bid bid = 22;
+        CancelBid cancelBid = 23;
+
+        RotateReservePriceKey rotateReservePriceKey = 24;
+    }
+}
+
+// initialization transaction; must be the first message on the HCS topic
+message InitContract {
+    // superuser address which may authorize any transaction that any other address here can authorize
+    bytes adminAddress = 1;
+
+    // the cashier address which may only mint and burn ISV tokens
+    // (in accordance with a USD purchase or payout, respectively)
+    bytes cashierAddress = 2;
+
+    // the auctioneer address, which may issue `CloseAuction` transactions only at some time
+    // after the designated end time of an auction; by issuing this transaction, it signals
+    // the contract to calculate the winner(s) of the auction and transfer bottle tokens accordingly
+    bytes auctioneerAddress = 3;
+
+    // the address which may issue `GrantKyc` and `RevokeKyc` transactions
+    bytes kycManagerAddress = 4;
+}
+
+// a cash transaction to credit or debit ISV tokens to/from an address
+// may only be signed by the current `cashierAddress` of the auctioneer contract
+message Cash {
+    // the amount of ISV tokens to mint or burn;
+    // a positive amount mints, a negative amount burns
+    int64 tokenAmount = 1;
+
+    // the address to credit/debit the tokens to/from
+    bytes address = 2;
+}
+
+// grant KYC status to an address
+// this address may then mint barrel tokens and create auctions
+//
+// must be signed by the `kycManagerAddress`
+message GrantKyc {
+    bytes address = 1;
+}
+
+// revoke KYC status from an address
+//
+// must be signed by the `kycManagerAddress`
+message RevokeKyc {
+    bytes address = 1;
+}
+
+// mint a Barrel token which has an associated collection of Bottle Tokens
+//
+// may be executed by any address that has received a `GrantKyc` transaction
+message MintBarrelToken {
+    // TODO: establish if we want any other fields here
+
+    map<string, string> barrelAttributes = 2;
+
+    repeated BottleToken bottleTokens = 255;
+}
+
+message BottleToken {
+    // the serial number of the bottle, must be unique in the barrel
+    int64 serialNumber = 1;
+
+    // any customization attributes of the bottle
+    map<string, string> customAttributes = 2;
+}
+
+// create an auction, may only be executed by the barrel owner
+message CreateAuction {
+    // the ID of the barrel from which to auction bottles
+    string barrelId = 1;
+
+    // the beginning of the serial range to auction from the barrel (inclusive)
+    int64 serialRangeBegin = 2;
+
+    // the end of the serial range to auction from the barrel (inclusive)
+    // no bottle in the range `[serialRangeBegin, serialRangeEnd]` can have been sold already
+    int64 serialRangeEnd = 3;
+
+    // the minimum bid for the auction, may be zero
+    int64 minimumBid = 4;
+
+    // the minimum price for the sale of a bottle (encrypted, see `ReservePrice` for details)
+    // if null, no reserve price is set
+    ReservePrice reservePrice = 5;
+
+    // the consensus timestamp at which bidding may begin; if 0, the auction begins immediately,
+    // otherwise must be greater than the consensus timestamp of this transaction.
+    int64 startTimestamp = 6;
+
+    // the consensus timestamp after which bids will no longer be accepted; must be greater
+    // than the consensus timestamp of this transaction
+    //
+    // after this timestamp the auctioneer may submit a `CloseAuction` transaction to issue
+    // bottle tokens to the winners and refund the losers
+    int64 endTimestamp = 7;
+
+    // if `true`, allow bids to request more than one bottle
+    bool allowBatchBids = 8;
+}
+
+// An encrypted reserve price that can only be read by Auctioneer and must be revealed when the
+// auction is closed.
+//
+// Encryption Process:
+// * generate an ephemeral (one-time use only) x25519 keypair with a secure source of randomness
+// * using that keypair and Auctioneer's public key, calculate the ECDH shared secret
+// * use HKDF to create an encryption key (because an ECDH shared secret is a bad encryption key on its own):
+//    * https://datatracker.ietf.org/doc/html/rfc5869#section-2
+//    * hash: SHA-384
+//    * salt: default (256 nul bytes)
+//    * info: "rooshine auctioneer reserve price {barrelID}[{serialRangeBegin},{serialRangeEnd}]"
+//      e.g. for barrel ID `asdf1234`, serialRangeBegin `100`, serialRangeEnd `199`:
+//      "rooshine auctioneer reserve price asdf1234[100,199]"
+//    * IKM: the ECDH shared secret
+//    * L: 128 octets (1024 bits; block size of SHA-384)
+// * XOR the little-endian representation of the 64-bit reserve price with the first 8 octets of the encryption key
+//   and provide that as `encryptedPrice`.
+// * finally, calculate the HMAC of the little-endian representation of the reserve price with
+//   the full encryption key and provide that as `hmac`:
+//
+// `hmac = HMAC(digest = SHA-384, key = encryptionKey, message = littleEndian(reservePrice))`
+//
+// Decrypt using the same process but with `encryptedPrice`, interpret the result as little-endian.
+//
+// Note: I realize that this isn't a *good* encryption scheme but it doesn't really have to be;
+// we're just obscuring a single 64-bit integer for a short period. The only real issue is creating
+// a system that can be cracked once and then someone can read the reserve prices of all auctions,
+// but using ephemeral ECDH should make that unlikely unless there's a vulnerability in
+// x25519 itself.
+message ReservePrice {
+    // the 64-bit (8 bytes) encrypted price
+    bytes encryptedPrice = 1;
+
+    // the public key of the ephemeral x25519 keypair used to generate the ECDH shared secret
+    bytes x25519PublicKey = 2;
+
+    // The HMAC of the reserve price, used by auctioneer in `CloseAuction` to prove that it had
+    // the shared secret and decrypted the reserve price correctly.
+    //
+    // Calculated as follows:
+    // `HMAC(digest = SHA-384, key = hmacKey, message = littleEndian(reservePrice))`
+    //
+    // where `hmacKey` is the full HKDF-derived encryption key.
+    //
+    // Since no one but the seller and the auctioneer can know the derived encryption key until the auctioneer
+    // publishes it in `CloseAuction`, this makes it infeasible to find the reserve price by brute-force, and
+    // also doesn't provide a way to confirm any guesses of the reserve price based on the seller's habits.
+    //
+    // Note that Contract cannot verify the HMAC until `CloseAuction` which will be rejected if the HMAC
+    // verification fails, so people will be able to bid but they should be automatically refunded if the auction fails to close normally.
+    bytes hmac = 3;
+}
+
+// close an auction
+// may be done only before bidding begins (`CreateAuction.startTimestamp`) by the auction creator,
+// or at any time by the auctioneer
+message CloseAuction {
+    // the ID of the auction to close
+    string auctionId = 1;
+
+    // if the auction should determine winners or not; may only be set `true` by the auctioneer
+    // after `CreateAuction.endTimestamp`
+    //
+    // if `true`, the top X bidders where X is the number of bottles in the serial range will
+    // receive bottle tokens in order by highest bid and lowest serial number, minus any bids
+    // cut off by `reservePrice`, if set
+    //
+    // the rest of the bidders will be refunded
+    bool calculateWinners = 2;
+
+    // The decrypted reserve price of the auction; may only be set by the auctioneer
+    // after `CreateAuction.endTimestamp` and must be verified by Contract using
+    // `ReservePrice.hmac`.
+    int64 reservePrice = 3;
+
+    // The original HKDF-derived key used to encrypt the reserve price. Only needs to be set if `calculateWinners = true`.
+    //
+    // To verify that the reserve price was decrypted correctly, calculate the HMAC of it using this key:
+    //
+    // `hmac = HMAC(digest = SHA-384, key = hmacKey, message = littleEndian(reservePrice))`
+    //
+    // and then check that it equals the original `ReservePrice.hmac` value. You can additionally verify via:
+    //
+    // `ReservePrice.encryptedPrice == hmacKey[..8] ^ littleEndian(reservePrice)`
+    bytes hmacKey = 4;
+}
+
+// bid on an auction or overwrite a previous bid from the same address
+message Bid {
+    // the ID of the auction to bid on
+    string auctionId = 1;
+
+    // the amount to bid for a single bottle
+    //
+    // if this is the first time this address has bid on this auction, the total amount will be
+    // deducted from the address' token balance; if this is a re-bid, only the difference will be
+    // deducted, though this may not be less than the address' previous bid on this auction
+    int64 unitPrice = 2;
+
+    // the number of bottles to purchase; the total bid amount is this times `unitPrice`
+    // defaults to 1 if not specified or set to 0 (which is protobufs' default)
+    int64 batchSize = 3;
+}
+
+// cancel the primary signer's bid on the given auction
+//
+// the bid amount will be refunded; can only be done before the auction ends
+message CancelBid {
+    string auctionId = 1;
+}
+
+// rotate Auctioneer's x25519 keypair used in the ECDH key-agreement scheme used with `ReservePrice`
+message RotateReservePriceKey {
+    // the `validStart` timestamp for which this key will take effect; transactions
+    // must use the *latest* key for which their `validStart` is greater than or equal to
+    // the `minValidStart`
+    //
+    // using `validStart` instead of `consensusTimestamp` here because the client cannot
+    // know the `consensusTimestamp` when creating the transaction
+    //
+    // this cannot be less than the `consensusTimestamp` for the transaction, and should ideally
+    // be at least an hour after the current time in order for clients to update their keys
+    int64 minValidStart = 1;
+
+    // the new x25519 public key that must be used to encrypt reserve prices
+    // for transactions after `minValidStart` (see `ReservePrice` for details)
+    bytes newX25519PublicKey = 2;
+}

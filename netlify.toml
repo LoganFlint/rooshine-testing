@@ -1,0 +1,15 @@
+[build.environment]
+# makes netlify skip the automatic npm install,
+# to let pnpm take care of it
+NPM_FLAGS = "--prefix=/dev/null"
+
+[[redirects]]
+from = "/api/*"
+to = "https://api.sandbox.drinkrooshine.com/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

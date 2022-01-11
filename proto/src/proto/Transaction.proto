@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package isv;
+
+// a transaction submitted to ISV's Hedera Consensus Service topic
+message IsvTransaction {
+    // the encoded `IsvTransactionBody`
+    // by requiring the body to be given in encoded form, that lets us sign the message
+    // without needing to worry about if the representation is reproducible
+    // (which it's not in Protobufs)
+    bytes body = 1;
+
+    // the primary signer of this transaction
+    // the transaction will be permission-checked against this address
+    // this is also the public key by which `primarySignature` should be checked
+    // and thus should be a valid Ed25519 public key (32 bytes)
+    bytes primarySignerAddress = 2;
+
+    // the primary signature of this transaction
+    // must be a valid Ed25519 signature of `body` as verified by `primarySignerAddress`
+    // interpreted as a public key
+    bytes primarySignature = 3;
+
+    // additional signatures, if any
+    // the requirements of this field are dictated by the transaction type
+    repeated IsvSignature additionalSignatures = 4;
+}
+
+// an additional signature on an `IsvTransaction`
+message IsvSignature {
+    // the address of the signer; same semantics as `IsvTransaction.primarySignerAddress`
+    bytes signerAddress = 1;
+    // the additional signature; same semantics as `IsvTransaction.primarySignature`
+    bytes signature = 2;
+}

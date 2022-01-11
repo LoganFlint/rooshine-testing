@@ -1,0 +1,10 @@
+node_modules
+/.vscode
+.DS_Store
+dist
+dist-ssr
+*.local
+proto/lib
+package-lock.json
+pnpm-lock.yaml
+.pnpm-debug.log

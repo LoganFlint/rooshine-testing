@@ -1,0 +1,12 @@
+
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "target": "esnext",
+        "types": ["cypress", "cypress-file-upload", "node", "../support"],
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    },
+    "include": ["integration/components", "integration"],
+    "exclude": []
+}
