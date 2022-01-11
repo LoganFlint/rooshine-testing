@@ -6,7 +6,7 @@ describe("Sign in", () => {
         cy.get('[alt="rooshine logo"]').should("be.visible");
     });
 
-    it("Sign in: Smith (no wallet)", () => {
+    it("Sign in: Smith", () => {
         const email = smith.email;
         const password = smith.password;
 
@@ -38,6 +38,10 @@ describe("Sign in", () => {
         cy.get('[alt="close"]').should("be.visible").click().then(() => {
             cy.get('[data-cy=sign-in-modal]').should("not.exist");
         });
+    });
+
+    it("Sign in: Logan", () => {
+        cy.login();
     });
 
     
