@@ -44,6 +44,7 @@
       />
 
       <MainButton
+        data-cy="change-password"
         class="py-1.5"
         label="change password"
         text-color="red"

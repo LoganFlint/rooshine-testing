@@ -39,10 +39,4 @@ describe("Sign in", () => {
             cy.get('[data-cy=sign-in-modal]').should("not.exist");
         });
     });
-
-    it("Sign in: Logan", () => {
-        cy.login();
-    });
-
-    
 })
