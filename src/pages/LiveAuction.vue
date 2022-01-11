@@ -2,7 +2,7 @@
   <div class="px-14 py-10">
     <div class="flex items-center justify-between pb-8">
       <div class="flex items-center">
-        <div class="font-serif font-bold text-5xl pr-4">
+        <div data-cy="live-auction-header" class="font-serif font-bold text-5xl pr-4">
           Live Auction
         </div>
         <img

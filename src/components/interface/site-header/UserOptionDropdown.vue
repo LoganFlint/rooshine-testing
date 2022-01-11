@@ -19,6 +19,7 @@
         <div
           v-for="(value, i) in Object.values(options)"
           :key="i"
+          :data-cy-option="value"
           class="flex items-center py-3.5 pl-5 cursor-pointer hover:bg-whiteSmoke"
           @click="handleClickOption(i)"
         >

@@ -11,6 +11,7 @@
       @close="closeSearchBar" 
     />
     <img
+      data-cy="user-option-dropdown"
       src="../../../assets/user.svg"
       alt="user"
       class="pr-5 cursor-pointer"
