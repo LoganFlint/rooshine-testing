@@ -1,10 +1,13 @@
 /// <reference types="cypress" />
 
-describe("admin auctions page", () => {
-  it("admin auctions title", () => {
+beforeEach(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     cy.goToAdmin();
+})
+
+describe("admin auctions page", () => {
+  it("admin auctions title", () => {
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })
@@ -12,9 +15,6 @@ describe("admin auctions page", () => {
   });
 
   it("current auction name", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin()
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })
@@ -23,9 +23,6 @@ describe("admin auctions page", () => {
 
   // TODO (deletion of live auction) button not currently eneabled this needs to be added later
   it("delete live auction", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin()
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })
@@ -37,9 +34,6 @@ describe("admin auctions page", () => {
 
   // TODO (edit of live auction) button not currently eneabled this needs to be added later
   it("edit current auction", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin()
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })
@@ -50,9 +44,6 @@ describe("admin auctions page", () => {
   });
 
   it("go to admin upcoming auctions", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin();
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })
@@ -62,9 +53,6 @@ describe("admin auctions page", () => {
   });  
   
   it("go to admin past auctions", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin()
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })

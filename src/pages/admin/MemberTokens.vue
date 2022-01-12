@@ -11,6 +11,7 @@
       class=" pt-11 pl-11"
     >
       <BarrelToken
+        data-cy="barrel-tokens"
         class="mr-5 w-[145px] h-[223px]"
         :lot-number="token.lotNumber"
         :year="token.startDate"

@@ -78,6 +78,7 @@
       </div>
     </div>
     <MainButton
+      data-cy="member-deactivate"
       class="py-1 my-6"
       label="deactivate account"
       bg-color="outline"

@@ -9,7 +9,6 @@
       >
       <MainButton
         label="create auction"
-        class=""
         type="submit"
         bg-color="outline"
         text-color="black"

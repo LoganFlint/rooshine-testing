@@ -29,10 +29,12 @@
       </div>
       <ToggleNotification
         v-model="isAdmin"
+        data-cy="toggle-isAdmin"
       />
     </div>
 
-    <MainButton          
+    <MainButton    
+      data-cy="send-password-reset"      
       class="py-1  my-6"
       label="send password reset"
       bg-color="outline"
@@ -44,7 +46,6 @@
 
 <script setup lang="ts">
 const isAdmin = ref(false)
-
 const lastvisited = ref(new Date)
 
 function sendPasswordReset() { 

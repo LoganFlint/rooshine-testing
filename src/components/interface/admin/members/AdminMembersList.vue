@@ -47,7 +47,7 @@
         >
           <td class="pl-4">
             <div>{{ member.displayName }}</div>
-            <div class="font-light">
+            <div data-cy="admin-member-email" class="font-light">
               {{ member.email }}
             </div>
           </td>

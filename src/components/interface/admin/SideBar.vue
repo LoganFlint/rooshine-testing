@@ -15,7 +15,7 @@
           :to="{name: 'admin.home'}"
           text="Home"
         />
-        <div class=" ">
+        <div>
           <NavLink
             admin
             notification="21"
@@ -32,6 +32,7 @@
         />
         <NavLink
           admin
+          data-cy="admin-members-tab"
           :to="{name: 'admin.members'}"
           text="Members"
         />

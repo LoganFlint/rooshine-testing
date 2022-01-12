@@ -1,11 +1,13 @@
 /// <reference types="Cypress" />
 
-describe("admin barrel page", () => {
+beforeEach(() => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.goToAdmin();
+})
 
+describe("admin barrel page", () => {
   it("navigate to admin barrels & verify title", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin();
     cy.get('[data-cy=admin-barrels-link]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/barrels') 
     })
@@ -14,9 +16,6 @@ describe("admin barrel page", () => {
 
   // needs to be connected to BE and tested further later
   it("find search barrels & use input", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin();
     cy.get('[data-cy=admin-barrels-link]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/barrels') 
     })
@@ -26,9 +25,6 @@ describe("admin barrel page", () => {
   });
 
   it("forward and back barrel pages", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin();
     cy.get('[data-cy=admin-barrels-link]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/barrels') 
     })
@@ -39,9 +35,6 @@ describe("admin barrel page", () => {
   });
 
   it("click on barrel in grid list", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    cy.goToAdmin()
     cy.get('[data-cy=admin-barrels-link]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/barrels') 
     })

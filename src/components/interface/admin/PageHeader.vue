@@ -63,6 +63,7 @@
 
       <MainButton
         v-if="button"
+        data-cy="create-auction"
         class="mr-10"
         label="create auction"
         bg-color="outline"
@@ -76,7 +77,7 @@
       class="pt-6 pl-10"
     >
       <router-link :to="{ name: 'admin.members' }">
-        <div class="flex items-center">
+        <div data-cy="member-info-back" class="flex items-center">
           <img
             src="../../../assets/link_arrow_left.svg"
             alt="chevron right"
@@ -87,10 +88,11 @@
         </div>
       </router-link>
       <div class="flex items-center h-12 mt-5">
-        <div class="font-serif font-bold text-[32px] pr-4">
+        <div data-cy="member-name" class="font-serif font-bold text-[32px] pr-4">
           {{ memberName }}
         </div>
         <div
+          data-cy="member-type"
           :class="[
             'rounded-full  font-source font-semibold text-xs py-1.5 px-3',
             {
@@ -252,6 +254,7 @@
     />
     <NavLink
       user
+      data-cy="member-tokens"
       :to="{ name: 'admin.member.tokens' }"
       text="Tokens"
       class="pr-9"

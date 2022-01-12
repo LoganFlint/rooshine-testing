@@ -55,7 +55,7 @@
         class="border-b border-unicornSilver text-left hover:bg-speedOfLight"
       >
         <tr class="h-12 font-source text-sm pl-4">
-          <td class="pl-4">
+          <td data-cy="upcoming-auction-name" class="pl-4">
             {{ auction.name }}
           </td>
           <td>{{ auction.lotCount }}</td>

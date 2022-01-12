@@ -4,8 +4,8 @@
     :is-open="true"
     @close="closeModal"
   >
-    <div class="max-h-screen overflow-auto px-10 pb-10 bg-speedOfLight">
-      <div class="pt-5 pr-40 font-serif font-bold text-5xl">
+    <div data-cy="create-auction-modal" class="max-h-screen overflow-auto px-10 pb-10 bg-speedOfLight">
+      <div data-cy="admin-create-auction-title" class="pt-5 pr-40 font-serif font-bold text-5xl">
         Create/Edit Auction
       </div>
       <div class="pt-10 pr-10">

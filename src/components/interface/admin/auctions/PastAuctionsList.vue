@@ -70,7 +70,7 @@
         <tr
           class="h-12 font-source text-sm pl-4"
         >
-          <td class="pl-4">
+          <td data-cy="past-auction-name" class="pl-4">
             {{ auctions.name }}
           </td>
           <td class="w-48">
