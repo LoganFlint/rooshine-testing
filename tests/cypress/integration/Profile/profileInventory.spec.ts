@@ -1,17 +1,11 @@
 /// <reference types="Cypress" />
 
-beforeEach(() => {
-  Cypress.Cookies.preserveOnce("session_id", "remember_token");
-});
-
-before(() => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  cy.login();
-});
-
 describe("profile inventory section", () => {
+ 
   it("create a new listing", () => {
+     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+    cy.login()
     cy.get("[data-cy=create-listing]")
       .first()
       .click()
@@ -44,6 +38,9 @@ describe("profile inventory section", () => {
   });
 
   it("verify :mailto link", () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.login()
     // contact rooshine
     cy.get("[data-cy=contact-rooshine]")
       .contains("contact rooshine")
@@ -51,6 +48,9 @@ describe("profile inventory section", () => {
   });
 
   it("create new barrel evaluation", () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.login()
     // request button
     cy.get("[data-cy=create-barrel]")
       .click()
