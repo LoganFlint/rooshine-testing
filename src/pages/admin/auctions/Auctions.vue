@@ -8,7 +8,7 @@
     <div class="px-10">
       <div class="pt-10 flex items-center justify-between">
         <div>
-          <div class="font-serif font-bold text-2xl pb-3">
+          <div data-cy="auction-name" class="font-serif font-bold text-2xl pb-3">
             Auction Name
           </div>
           <div class="font-source text-xl">
@@ -22,7 +22,8 @@
           </div>
         </div>
         <div class="flex">
-          <MainButton     
+          <MainButton   
+            data-cy="delete-auction"  
             class="py-1 w-28 mr-2"
             label="delete"
             bg-color="outline"
@@ -30,7 +31,8 @@
             custom-px
             @click="deleteAuction"
           />
-          <MainButton     
+          <MainButton 
+            data-cy="edit-auction"  
             class="py-1 w-28"
             label="edit"
             bg-color="outline"

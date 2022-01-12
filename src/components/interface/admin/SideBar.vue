@@ -25,6 +25,7 @@
           />
         </div>
         <NavLink
+          data-cy="admin-auctions-tab"
           admin
           :to="{name: 'admin.auctions.live'}"
           text="Auctions"

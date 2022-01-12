@@ -116,12 +116,14 @@
     />
     <NavLink
       user
+      data-cy="upcoming-auctions"
       :to="{ name: 'admin.auctions.upcoming' }"
       text="Upcoming"
       class="pr-9"
     />
     <NavLink
       user
+      data-cy="past-auctions"
       :to="{ name: 'admin.auctions.past' }"
       text="Past"
       class="pr-9"
