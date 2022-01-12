@@ -1,19 +1,17 @@
-describe("Sign in", () => {
-  beforeEach(() => {
-    Cypress.Cookies.preserveOnce('session_id', 'remember_token')
-  })
-  it("App mounted", () => {
-      cy.visit("/").contains(`Hosting the Most`);
-      cy.get('[alt="rooshine logo"]').should("be.visible");
-  });
+/// <reference types="Cypress" />
 
-  it("Sign in", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-      cy.login();
-});
+beforeEach(() => {
+  Cypress.Cookies.preserveOnce('session_id', 'remember_token')
+})
 
-  it("test change password", () => {
+before(() => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.login()
+})
+
+describe("change password modal", () => {
+  it("test change password button", () => {
     // const currentPassword = "Lambda19"
     // const newPassword = "Lambda2019"
     cy.get('[data-cy=change-password]').should("be.visible")

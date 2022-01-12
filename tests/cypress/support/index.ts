@@ -3,6 +3,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 Cypress.Commands.add('login', (email: string, password: string) => {
+    cy.visit("/").contains(`Hosting the Most`);
+    cy.get('[alt="rooshine logo"]').should("be.visible");
     email = "logan@launchbadge.com"
     password = "Lambda19"
     cy.visit('/sign-in')

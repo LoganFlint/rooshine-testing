@@ -1,19 +1,17 @@
-describe("Sign in", () => {
-  beforeEach(() => {
-    Cypress.Cookies.preserveOnce('session_id', 'remember_token')
-  })
-  it("App mounted", () => {
-      cy.visit("/").contains(`Hosting the Most`);
-      cy.get('[alt="rooshine logo"]').should("be.visible");
-  });
+/// <reference types="Cypress" />
 
-  it("Sign in", () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-      cy.login();
-});
+beforeEach(() => {
+  Cypress.Cookies.preserveOnce('session_id', 'remember_token')
+})
 
-  it("test getting started", () => {
+before(() => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.login()
+})
+
+describe("getting started suggested auctions", () => {
+  it("close getting started should not longer be visible", () => {
     cy.get('[data-cy=close-getting-started]').click().then(() => {
       cy.get('[data-cy=getting-started]').should("not.be.visible");
     })

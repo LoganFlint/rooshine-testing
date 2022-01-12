@@ -7,6 +7,7 @@
     <div class="justify-between pt-6 flex items-center">
       <div class="flex items-center h-16 relative">
         <TextInput
+          id="search-barrels"
           class="w-[780px] bg-white"
           placeholder="Search"
         />

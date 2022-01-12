@@ -19,6 +19,7 @@
     <div
       v-if="title"
       class="font-serif font-bold text-3xl pl-10 pr-5"
+      data-cy="title"
     >
       {{ title }}
     </div>

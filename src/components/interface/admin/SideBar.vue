@@ -21,7 +21,7 @@
             notification="21"
             :to="{name: 'admin.barrels'}"
             text="Barrels"
-            class=""
+            data-cy="admin-barrels-link"
           />
         </div>
         <NavLink

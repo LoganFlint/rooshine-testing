@@ -44,7 +44,9 @@
           class="h-12 font-source text-sm pl-4"
           @click="handleRedirect(barrel.barrelId)"
         >
-          <td class="pl-4">
+          <td
+          data-cy="barrel-id-to-barrelDetails"
+           class="pl-4">
             {{ barrel.barrelId }}
           </td>
           <td>{{ barrel.title }}</td>
@@ -100,6 +102,7 @@
             @click="first"
           >
           <img
+            data-cy="barrels-back-page"
             class="mr-2"
             src="../../../../assets/arrow_left.svg"
             alt="arrow right"
@@ -128,6 +131,7 @@
           }"
         >
           <img
+            data-cy="barrels-forward-page"
             class="rotate-180 mr-2"
             src="../../../../assets/arrow_left.svg"
             alt="arrow right"
