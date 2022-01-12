@@ -1,20 +1,18 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 
-beforeEach(() => {
-  Cypress.Cookies.preserveOnce('session_id', 'remember_token')
-})
+// beforeEach(() => {
+//   Cypress.Cookies.preserveOnce('session_id', 'remember_token')
+// })
 
-before(() => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  cy.login()
-  cy.get('[data-cy=admin-button]').click().then(() => {
-    cy.url().should('eq', 'http://localhost:3000/admin/home') 
-  })
-})
+// before(() => {
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-ignore
+
+// })
 
 describe("admin auctions page", () => {
   it("admin auctions title", () => {
+    cy.goToAdmin();
     cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })

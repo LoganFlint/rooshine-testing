@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+/// <reference types="cypress" />
 
 beforeEach(() => {
   Cypress.Cookies.preserveOnce('session_id', 'remember_token')
