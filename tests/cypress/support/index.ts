@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
-Cypress.Commands.add('login', (email: string, password: string) => {
+Cypress.Commands.add('login', () => {
     cy.visit("/").contains(`Hosting the Most`);
     cy.get('[alt="rooshine logo"]').should("be.visible");
-    email = "logan@launchbadge.com"
-    password = "Lambda19"
+    const email = "logan@launchbadge.com"
+    const password = "Lambda19"
     cy.visit('/sign-in')
     cy.get('[data-cy=sign-in-modal]').should("be.visible");
     cy.get('[data-cy=sign-in-email-input]').should("be.visible");
@@ -21,4 +21,15 @@ Cypress.Commands.add('login', (email: string, password: string) => {
     });
     cy.visit("/profile")
   })
-  
+ 
+//eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+Cypress.Commands.add('goToAdmin', () => {
+    //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    cy.login()
+    cy.visit("/profile");
+    cy.get('[data-cy=admin-button]').click().then(() => {
+      cy.url().should('eq', 'http://localhost:3000/admin/home') 
+    })
+});
