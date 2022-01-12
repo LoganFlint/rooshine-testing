@@ -1,22 +1,23 @@
 
 /// <reference types="Cypress" />
 
-beforeEach(() => {
-  Cypress.Cookies.preserveOnce('session_id', 'remember_token')
-})
+// beforeEach(() => {
+//   Cypress.Cookies.preserveOnce('session_id', 'remember_token')
+// })
 
-before(() => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  cy.login()
-})
+// before(() => {
+//   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//   // @ts-ignore
+//   cy.login()
+// })
 
 describe("admin barrel page", () => {
 
   it("navigate to admin barrels & verify title", () => {
-    cy.get('[data-cy=admin-button]').click().then(() => {
-      cy.url().should('eq', 'http://localhost:3000/admin/home') 
-    })
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    cy.goToAdmin();
+  
     cy.get('[data-cy=admin-barrels-link]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/barrels') 
     })
