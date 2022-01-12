@@ -11,6 +11,7 @@
   >
     <div
       v-if="name"
+      data-cy="admin-welcome-name"
       class="pl-10 font-serif font-bold text-[32px]"
     >
       Welcome Back, {{ name }}
@@ -50,6 +51,7 @@
     <div class="flex items-center">
       <router-link
         v-if="profile"
+        data-cy="profile-button"
         :to="{ name: 'profile' }"
       >
         <img

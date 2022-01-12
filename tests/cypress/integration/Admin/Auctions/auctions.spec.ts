@@ -53,13 +53,5 @@ describe("admin auctions page", () => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/past') 
     })
   });
-
-
-
-
-
-
-
-
   
 })

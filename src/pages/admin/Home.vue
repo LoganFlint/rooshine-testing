@@ -11,7 +11,7 @@
       <AuctionCards />
     </div>
     <div class="w-full mr-14">
-      <EvaluationBanner class="w-full" />
+      <EvaluationBanner data-cy="evaluation-banner" class="w-full" />
     </div>
   </div>
 </template>

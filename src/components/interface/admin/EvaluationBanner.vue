@@ -11,6 +11,7 @@
           </div>
         </div>
         <MainButton
+          data-cy="view-evaluation-requests"
           class="py-1 px-12 mr-6"
           label="view"
           bg-color="red"
