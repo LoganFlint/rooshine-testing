@@ -25,10 +25,12 @@
           v-for="(value, i) in Object.values(options)"
           :key="i"
           class="flex justify-center items-center py-3.5 cursor-pointer hover:bg-whiteSmoke"
+          data-cy="barrel-status-option"
           @click="handleClickOption(i)"
         >
           <div class="flex flex-col w-28 text-center">
             <div
+              :data-cy-barrel-status="value"
               :class="[
                 'font-semibold py-2 px-5 rounded-full',
                 {

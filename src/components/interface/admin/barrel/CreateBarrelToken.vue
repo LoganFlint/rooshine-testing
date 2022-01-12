@@ -34,6 +34,7 @@
     </div>
 
     <MainButton
+      data-cy="barrel-info-create-token"
       class="py-2 mt-6 w-full"
       label="create barrel token"
       bg-color="red"

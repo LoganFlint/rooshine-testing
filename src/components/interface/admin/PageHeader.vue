@@ -30,7 +30,7 @@
       class="pt-6 pl-10"
     >
       <router-link :to="{ name: 'admin.barrels' }">
-        <div class="flex items-center">
+        <div data-cy="barrel-info-back" class="flex items-center">
           <img
             src="../../../assets/link_arrow_left.svg"
             alt="chevron right"
@@ -41,10 +41,10 @@
         </div>
       </router-link>
       <div class="flex items-center h-12 mt-5">
-        <div class="font-serif font-bold text-[32px] pr-4">
+        <div data-cy="barrel-info-barrelId" class="font-serif font-bold text-[32px] pr-4">
           ID #{{ barrelId }}
         </div>
-        <BarrelStatusDropdown :barrel-id="barrelId" />
+        <BarrelStatusDropdown data-cy="barrel-status-holder" :barrel-id="barrelId" />
       </div>
     </div>
 
@@ -141,6 +141,7 @@
   >
     <NavLink
       user
+      data-cy="barrel-info"
       :to="{ name: 'admin.barrels' }"
       text="All Lots"
       class="pr-9"

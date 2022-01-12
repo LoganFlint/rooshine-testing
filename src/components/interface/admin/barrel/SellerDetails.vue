@@ -29,7 +29,8 @@
           >{{ userPhone }} </a>
         </div>
       </div>
-      <MainButton          
+      <MainButton    
+        data-cy="barrel-info-view-account"      
         class="py-2 w-full mt-5 mb-7"
         label="view account"
         bg-color="outline"

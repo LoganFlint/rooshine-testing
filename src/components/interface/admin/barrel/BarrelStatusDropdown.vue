@@ -1,6 +1,7 @@
 
 <template>
   <div
+    data-cy="barrel-status-dropdown"
     :class="[
       'rounded-full flex items-center py-2 px-4 cursor-pointer w-24',
       {
