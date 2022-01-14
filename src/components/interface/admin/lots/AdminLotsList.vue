@@ -41,11 +41,11 @@
         class="border-b border-unicornSilver text-left hover:bg-speedOfLight"
       >
         <tr
+          data-cy="barrel-id-to-barrelDetails"
           class="h-12 font-source text-sm pl-4"
           @click="handleRedirect(barrel.barrelId)"
         >
           <td
-          data-cy="barrel-id-to-barrelDetails"
            class="pl-4">
             {{ barrel.barrelId }}
           </td>

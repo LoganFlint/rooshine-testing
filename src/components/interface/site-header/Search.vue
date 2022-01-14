@@ -2,6 +2,7 @@
   <div
     v-if="isOpen"
     class="fixed top-0 left-0 right-0 bottom-0"
+    data-cy="close-search-bar"
     @click="close"
   />
   <div>
@@ -15,8 +16,9 @@
       ]"
     >
       <div class="relative right-[380px] top-2 transition-all duration-300 transform z-10 rounded font-source text-xl">
-        <TextInput  
+        <TextInput
           v-model="searchItem"
+          data-cy="search-bar"  
           class="w-80 bg-speedOfLight"
           placeholder="Search"
           input-type="text"

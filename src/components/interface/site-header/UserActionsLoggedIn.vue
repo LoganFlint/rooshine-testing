@@ -1,12 +1,13 @@
 <template>
   <div class="flex">
     <img
+      data-cy="search-icon"
       class="pr-5 cursor-pointer"
       src="../../../assets/search.svg"
       alt="search"
       @click="openSearchBar"
     >
-    <Search       
+    <Search
       :is-open="showSearchBar"
       @close="closeSearchBar" 
     />

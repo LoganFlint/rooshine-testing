@@ -29,8 +29,8 @@
       v-if="barrelInfo"
       class="pt-6 pl-10"
     >
-      <router-link :to="{ name: 'admin.barrels' }">
-        <div data-cy="barrel-info-back" class="flex items-center">
+      <router-link data-cy="barrel-info-back" :to="{ name: 'admin.barrels' }">
+        <div class="flex items-center">
           <img
             src="../../../assets/link_arrow_left.svg"
             alt="chevron right"
