@@ -7,16 +7,19 @@
     >
     <div class="mb-11 p-2 rounded-full bg-planetOfTheApes flex justify-center items-center">
       <SocialLink
+        data-cy="facebook-link"
         :image="Facebook"
         url="http://www.facebook.com/drinkrooshine/"
         class="mx-2"
       />
       <SocialLink
+        data-cy="twitter-link"
         :image="Twitter"
         url="https://twitter.com/rooshine?lang=en"
         class="mx-2"
       />
       <SocialLink
+        data-cy="instagram-link"
         :image="Instagram"
         url="https://www.instagram.com/drinkrooshine/?hl=en"
         class="mx-2"

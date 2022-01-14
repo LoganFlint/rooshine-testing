@@ -16,7 +16,7 @@
           alt="barrel"
         >
         <div class="pl-3.5 font-source flex flex-col">
-          <div class="text-xs">
+          <div data-cy="wallet-balance" class="text-xs">
             BALANCE
           </div>
           <div class="text-4xl font-semibold">

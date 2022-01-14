@@ -1,14 +1,11 @@
 /// <reference types="cypress" />
 
-beforeEach(() => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  cy.goToAdmin();
-})
-
 describe("admin members page", () => {
 
   it("admin members title", () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.goToAdmin();
     cy.get('[data-cy=admin-members-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/members') 
     })
@@ -16,6 +13,9 @@ describe("admin members page", () => {
   });
 
   it("get first member by email in list and go to next page", () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.goToAdmin();
     cy.get('[data-cy=admin-members-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/members') 
     })
@@ -26,6 +26,9 @@ describe("admin members page", () => {
   });
 
   it("member tokens should be visible", () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  cy.goToAdmin();
     cy.get('[data-cy=admin-members-tab]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/members') 
     })

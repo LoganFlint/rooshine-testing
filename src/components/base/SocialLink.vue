@@ -15,6 +15,7 @@
 
   <div v-else>
     <a
+      data-cy="social-links"
       :href="url"
       target="_blank"
     >

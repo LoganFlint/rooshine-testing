@@ -1,13 +1,10 @@
 /// <reference types="cypress" />
 
-beforeEach(() => {
+describe("admin upcoming auctions", () => {
+  it("route to past auctions and get first element by name", () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   cy.goToAdmin();
-})
-
-describe("admin upcoming auctions", () => {
-  it("route to past auctions and get first element by name", () => {
     cy.get("[data-cy=admin-auctions-tab]").click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
     })

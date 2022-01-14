@@ -179,6 +179,7 @@
         }"
       >
         <MainButton
+          data-cy="view-lot"
           class="py-1 w-full"
           label="view lot"
           bg-color="outline"

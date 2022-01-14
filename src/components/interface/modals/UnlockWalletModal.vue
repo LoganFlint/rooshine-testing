@@ -24,6 +24,7 @@
         border
       />
       <MainButton
+        data-cy="unlock-wallet"
         class="m-auto mt-14"
         label="VERIFY MY MNEMONIC PHRASE"
         :disabled="emptyInputs"

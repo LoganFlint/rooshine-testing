@@ -13,6 +13,7 @@
       </div>
 
       <MainButton
+        data-cy="get-started"
         class="w-40"
         label="get started"
         bg-color="outline"

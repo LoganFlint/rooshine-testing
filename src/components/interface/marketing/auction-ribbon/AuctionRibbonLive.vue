@@ -3,12 +3,13 @@
     <div class="flex text-center items-center w-full">
       <img
         id="arrowLeft"
+        data-cy="auction-banner-arrow-left"
         class="opacity-0 invisible w-0 sm:opacity-100 sm:visible sm:w-auto cursor-pointer h-[158px]"
         :src="left"
         alt="left"
         @click="scroll('left')"
       >
-      <div class="pl-5 mr-10 flex flex-col mb-3">
+      <div data-cy="auction-banner-header" class="pl-5 mr-10 flex flex-col mb-3">
         <img
           class="animate-pulse mx-auto"
           :src="redBullet"
@@ -43,6 +44,7 @@
       </div>
       <img
         id="arrowRight"
+        data-cy="auction-banner-arrow-right"
         class="opacity-0 invisible w-0 sm:opacity-100 sm:visible sm:w-auto cursor-pointer h-[158px]"
         :src="right"
         alt="right"

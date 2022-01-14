@@ -17,6 +17,7 @@
       </div>
       <TextInput
         v-model="state.billingInformation.billingDetails.name"
+        data-cy="card-cardholderName"
         class="bg-white mb-4"
         :placeholder="state.messages.name"
         :required="true"
@@ -24,6 +25,7 @@
       <div v-if="form.includes('card')">
         <TextInput
           v-model="state.billingInformation.cardData.number"
+          data-cy="card-cardNumber"
           class="bg-white mb-4"
           placeholder="Card Number"
           :required="true"
@@ -31,12 +33,14 @@
         <div class="flex items-center pb-10">
           <DateInput
             v-model="state.billingInformation.cardExpiration"
+            data-cy="card-cardExp"
             input-type="text"
             class="bg-white text-center mr-4"
             placeholder="Exp. Date"
           />
           <TextInput
             v-model="state.billingInformation.cardData.cvv"
+            data-cy="card-cardCvc"
             class="bg-white mr-4 w-24"
             placeholder="CVC"
             :required="true"
@@ -58,6 +62,7 @@
       <div class="h-10">
         <SelectField
           v-model="state.billingInformation.billingDetails.country"
+          data-cy="card-country"
           class="border border-unicornSilver"
           label="Country"
           :options-object="countries"
@@ -65,18 +70,21 @@
       </div>
       <TextInput
         v-model="state.billingInformation.billingDetails.line1"
+        data-cy="card-line1"
         class="w-full bg-white mt-5"
         placeholder="Address Line 1"
         :required="true"
       />
       <TextInput
         v-model="state.billingInformation.billingDetails.line2"
+        data-cy="card-line2"
         class="w-full bg-white mt-5 mb-5"
         placeholder="Address Line 2"
         :required="true"
       />
       <TextInput
         v-model="state.billingInformation.billingDetails.city"
+        data-cy="card-city"
         class="w-full bg-white mb-5 mr-4"
         placeholder="Enter A City"
         :required="true"
@@ -85,6 +93,7 @@
       <div class="flex">
         <TextInput
           v-model="state.billingInformation.billingDetails.postalCode"
+          data-cy="card-postal-code"
           class="bg-white"
           placeholder="Postcode/Zip"
           :required="true"
@@ -92,6 +101,7 @@
         <div class="h-10 ml-4">
           <SelectField
             v-model="state.billingInformation.billingDetails.district"
+            data-cy="card-state"
             small
             class="border w-40 border-unicornSilver"
             label="State"
@@ -104,6 +114,7 @@
 
     <div class="pt-4 pb-4 px-5 relative z-30 rounded-b">
       <MainButton
+        data-cy="card-save"
         class="w-full"
         label="save"
         bg-color="red"

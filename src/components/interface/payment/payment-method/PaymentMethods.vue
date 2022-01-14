@@ -9,6 +9,7 @@
     <div class="my-6 border border-unicornSilver" />
 
     <div
+      data-cy="add-payment-method"
       class="flex items-center cursor-pointer"
       @click="openAddPayment"
     >

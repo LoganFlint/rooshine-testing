@@ -18,6 +18,7 @@
       <div
         v-for="index of images.keys()"
         :key="index"
+        :data-cy-carousel-image="index"
       >
         <div
           :class="[

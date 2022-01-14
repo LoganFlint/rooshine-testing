@@ -10,9 +10,9 @@ Cypress.Commands.add('login', () => {
     cy.visit('/sign-in')
     cy.get('[data-cy=sign-in-modal]').should("be.visible");
     cy.get('[data-cy=sign-in-email-input]').should("be.visible");
-    cy.get('[data-cy=sign-in-email-input]').type(email);
+    cy.get('[data-cy=sign-in-email-input]').click().type(email);
+    cy.get('[data-cy=sign-in-password-input]').click().type(password);
     cy.get('[data-cy=sign-in-get-started-button]').should("be.visible");
-    cy.get('[data-cy=sign-in-password-input]').type(password);
     cy.get('[data-cy=sign-in-get-started-button]').click().then(() => {
         cy.url().should("include", "/wallet");
     });
@@ -28,6 +28,20 @@ Cypress.Commands.add('goToAdmin', () => {
     cy.get('[data-cy=admin-button]').click().then(() => {
       cy.url().should('eq', 'http://localhost:3000/admin/home') 
     })
+    cy.get('[data-cy=admin-auctions-tab]').click().then(() => {
+      cy.url().should('eq', 'http://localhost:3000/admin/auctions/live') 
+    })
+});
+
+//eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+Cypress.Commands.add('goToAdminHome', () => {
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  cy.login()
+  cy.get('[data-cy=admin-button]').click().then(() => {
+    cy.url().should('eq', 'http://localhost:3000/admin/home') 
+  })
 });
 
 //eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -54,7 +68,7 @@ Cypress.Commands.add('goToAdminMemberInfo', () => {
 Cypress.Commands.add('goToAdminBarrelInfo', () => {
   //eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  cy.goToAdmin()
+  cy.goToAdminHome()
   cy.get('[data-cy=admin-barrels-link]').click().then(() => {
     cy.url().should('eq', 'http://localhost:3000/admin/barrels') 
   })
@@ -79,5 +93,8 @@ Cypress.Commands.add('goToMarketing', () => {
       cy.url().should("include", "/wallet");
   })
   cy.visit("/profile")
-
+  cy.get('[alt="rooshine logo"]').should("be.visible")
+  cy.get('[alt="rooshine logo"]').click().then(() => {
+    cy.url().should('eq', 'http://localhost:3000/') 
+  })
 })

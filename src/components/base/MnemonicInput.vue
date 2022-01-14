@@ -31,10 +31,11 @@
           ]"
         >{{ i.toString().padStart(2, "\u{00A0}") }}.</label>
         <TextInput
-          :id="`${i}`"
+          :id="`something${i}`"
           mnemonic
           :value="modelValue[i - 1] ?? '---'"
           :name="`word:${i}`"
+          :data-cy-mnemonic-option="i"
           :class="[
             'my-1 rounded-none w-20',
             {

@@ -47,6 +47,7 @@
           </div>
         </div>
         <div
+          data-cy="add-card-payment"
           :class="[
             'rounded mb-6 flex items-center py-5 pl-5 w-80 mx-8 cursor-pointer',
             {
@@ -81,6 +82,7 @@
         </div>
         <div class="pb-8 px-5">
           <MainButton
+            data-cy="continue-add-card"
             v-if="addCard"
             class="w-full"
             label="continue"
