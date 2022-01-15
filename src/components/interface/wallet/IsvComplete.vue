@@ -10,14 +10,15 @@
         src="../../../assets/white_barrel.svg"
         alt=""
       >
-      <div class="font-serif font-bold text-[40px] text-center pt-5 pb-4 text-white ">
+      <div data-cy="purchase-complete-title" class="font-serif font-bold text-[40px] text-center pt-5 pb-4 text-white ">
         Purchase <br> Complete!
       </div>
       <div class="text-sm text-center text-white pb-5">
         Your ISV has been added to your wallet
       </div>
 
-      <MainButton       
+      <MainButton   
+        data-cy="close-isv-purchased"    
         class="py-1 w-full mb-14"
         label="back to wallet"
         bg-color="outline"

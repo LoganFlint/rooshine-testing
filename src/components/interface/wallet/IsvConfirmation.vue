@@ -5,7 +5,7 @@
     @close="closeModal"
   >
     <div class="pt-9 px-5">
-      <div class="font-serif font-bold text-2xl text-center -mt-3 px-24 pb-6">
+      <div data-cy="purchase-review-title" class="font-serif font-bold text-2xl text-center -mt-3 px-24 pb-6">
         Purchase Review
       </div>
       <div
@@ -78,6 +78,7 @@
         <div>${{ total }}</div>
       </div>
       <MainButton
+        data-cy="confirm-isv-purchase"
         class="py-1 w-full mb-6"
         label="confirm purchase"
         bg-color="red"

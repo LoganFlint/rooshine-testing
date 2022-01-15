@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-md h-auto border border-unicornSilver pb-9 mb-5">
     <div class="font-serif text-xl font-bold flex h-16">
-      <div class="pr-6 pl-6 py-5 flex-grow">
+      <div data-cy="buy-tokens" class="pr-6 pl-6 py-5 flex-grow">
         Buy Tokens
       </div>
       <div class="bg-unicornSilver rounded-bl-3xl pl-5 py-5 w-64">
@@ -33,7 +33,7 @@
           v-else
           class="flex-grow"
         >
-          <PaymentSelectField v-model="state.selectedCard" />
+          <PaymentSelectField v-model="state.selectedCard" data-cy="payment-selectField" />
         </div>
       </div>
 
@@ -55,6 +55,7 @@
           <div class="mt-0.5 flex items-center">
             <TextInput
               v-model="ISV"
+              data-cy="you-receive"
               class="w-48"
               input-type="number"
               barrel
@@ -69,6 +70,7 @@
         </div>
       </div>
       <MainButton
+        data-cy="preview-purchase-isv"
         label="preview purchase"
         :disabled="buttonDisabled"
         @click="openIsvPurchase"

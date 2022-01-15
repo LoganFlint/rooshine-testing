@@ -8,11 +8,8 @@ Cypress.Commands.add('login', () => {
     const email = "logan@launchbadge.com"
     const password = "Lambda19"
     cy.visit('/sign-in')
-    cy.get('[data-cy=sign-in-modal]').should("be.visible");
-    cy.get('[data-cy=sign-in-email-input]').should("be.visible");
     cy.get('[data-cy=sign-in-email-input]').click().type(email);
     cy.get('[data-cy=sign-in-password-input]').click().type(password);
-    cy.get('[data-cy=sign-in-get-started-button]').should("be.visible");
     cy.get('[data-cy=sign-in-get-started-button]').click().then(() => {
         cy.url().should("include", "/wallet");
     });
@@ -97,4 +94,25 @@ Cypress.Commands.add('goToMarketing', () => {
   cy.get('[alt="rooshine logo"]').click().then(() => {
     cy.url().should('eq', 'http://localhost:3000/') 
   })
+})
+
+//eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//@ts-ignore
+Cypress.Commands.add('unlockWallet', () => {
+  const passphrase12 = "say,echo,finish,family,settle,clerk,orphan,cushion,proof,enhance,quarter,brand"
+  //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
+  cy.login()
+  cy.get('[data-cy=wallet-button]').click().then(() => {
+    cy.url().should('eq', 'http://localhost:3000/wallet') 
+  })
+  .get("[data-cy-mnemonic-option]").then(() => {
+    const words = passphrase12.split(",");
+    for (let i = 0; i < 12; i++) {
+      cy.get(`#something${i + 1}`).type(words[i]);
+    }
+  })
+  cy.get('[data-cy=unlock-wallet]').click()
+  cy.get("[data-cy=wallet-balance]").should("be.visible")
+  cy.get("[data-cy=wallet-balance]").contains("BALANCE")
 })
